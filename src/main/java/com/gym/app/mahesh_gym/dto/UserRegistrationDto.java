@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserRegistrationDto {
     private String userName;
-    private Integer mobile;
+    private String mobile;
     private String email;
     private String password;
 }

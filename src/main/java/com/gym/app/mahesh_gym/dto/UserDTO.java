@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class UserDTO {
     private Long userId;
     private String userName;
-    private Integer mobile;
+    private String mobile;
     private String email;
     private LocalDate joiningDate;
     private Boolean isActive;
