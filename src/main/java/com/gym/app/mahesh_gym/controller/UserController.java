@@ -31,7 +31,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/update_user")
+    @PutMapping("/update_user")
     public String updateUser(@RequestBody UserDTO userDTO) {
         String resp = userService.updateUser(userDTO);
         return resp;
@@ -44,7 +44,7 @@ public class UserController {
         return resp;
     }
 
-    @GetMapping("/get_all_user")
+    @GetMapping("/get_all_users")
     public List<UserDTO> getAllUser() {
         List<UserDTO> resp = userService.getAllUsers();
         return resp;

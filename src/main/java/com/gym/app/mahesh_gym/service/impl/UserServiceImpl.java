@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
         userEntity.setMobile(userRegistrationDto.getMobile());
         userEntity.setEmail(userRegistrationDto.getEmail());
         userEntity.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        System.out.println(userEntity);
         userRepository.save(userEntity);
         return "Saved Successful";
     }
