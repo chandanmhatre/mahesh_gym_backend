@@ -7,6 +7,7 @@ import com.gym.app.mahesh_gym.entity.UserEntity;
 import com.gym.app.mahesh_gym.mapper.UserMapper;
 import com.gym.app.mahesh_gym.repository.UserRepository;
 import com.gym.app.mahesh_gym.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     @Override
     public String createUser(UserRegistrationDto userRegistrationDto) {
         UserEntity userEntity = new UserEntity();
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService {
         return "Saved Successful";
     }
 
+    @Transactional
     @Override
     public String updateUser(UserDTO userDTO) {
         UserEntity userEntity = userRepository.findById(userDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));

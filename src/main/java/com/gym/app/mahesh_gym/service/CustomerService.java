@@ -1,20 +1,24 @@
 package com.gym.app.mahesh_gym.service;
 
 import com.gym.app.mahesh_gym.dto.CustomerDTO;
+import com.gym.app.mahesh_gym.dto.CustomerRegistrationDTO;
 import com.gym.app.mahesh_gym.entity.CustomerEntity;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerService {
 
-    public String registerCustomer(CustomerDTO customerDTO) throws IOException;
+    String registerCustomer(CustomerRegistrationDTO customerRegistrationDTO) throws IOException;
 
-    public String updateCustomer(CustomerDTO customerDTO);
+    String updateCustomer(CustomerDTO customerDTO) throws IOException;
 
-    public CustomerEntity getCustomerById(String id);
+    CustomerEntity getCustomerById(String id);
 
-    public List<CustomerEntity> getAllCustomers();
+    List<CustomerEntity> getAllCustomers(Integer page, Integer size, Boolean ascending);
 
-    public String deleteCustomerById(String id);
+    String deleteCustomerById(String id);
+
+    Map<String, String> getPhoto(String id, String photoType) throws IOException;
 }

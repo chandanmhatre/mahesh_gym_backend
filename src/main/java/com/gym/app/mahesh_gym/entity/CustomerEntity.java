@@ -19,7 +19,7 @@ public class CustomerEntity {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long custId;
 
     @Column(nullable = false)
     private String name;
@@ -46,13 +46,13 @@ public class CustomerEntity {
     private Double monthlyAmountPaid;
 
     @Column(nullable = false)
-    private Boolean smsStatus;  // No need for default value here
+    private Boolean smsStatus;
 
     @Column()
     private String additionalNote;
 
     @Column(nullable = false)
-    private Boolean currentMonthFeePaid = false;
+    private Boolean currentMonthFeePaid;
 
     @Column()
     private String customerPhoto;
@@ -63,7 +63,10 @@ public class CustomerEntity {
     @PrePersist
     public void prePersist() {
         if (smsStatus == null) {
-            smsStatus = true; // Set default only if it's null
+            smsStatus = true;
+        }
+        if (currentMonthFeePaid == null) {
+            currentMonthFeePaid = false;
         }
     }
 }

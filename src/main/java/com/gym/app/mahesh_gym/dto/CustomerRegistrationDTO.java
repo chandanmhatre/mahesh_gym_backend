@@ -15,10 +15,7 @@ import java.util.HashMap;
 @NoArgsConstructor
 @AllArgsConstructor
 //  Data Transfer Objects
-public class CustomerDTO {
-
-    @NotNull(message = "Name cannot be null")
-    private Long custId;
+public class CustomerRegistrationDTO {
 
     @NotNull(message = "Name cannot be null")
     @NotBlank(message = "Name cannot be blank")

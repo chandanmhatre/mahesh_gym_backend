@@ -1,5 +1,6 @@
 package com.gym.app.mahesh_gym.utils;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 public class EntityUtils {
@@ -16,11 +17,16 @@ public class EntityUtils {
 
                     try {
                         Object newValue = field.get(source);  // Step 3: Get new value
-                        Object existingValue = field.get(existing);  // Step 4: Get existing value
+                        Field targetField = getField(existing.getClass(), field.getName()); // Get matching field in existing
 
-                        // Step 5: If new value is null, set it to the existing value
-                        if (newValue == null && existingValue != null) {
-                            field.set(source, existingValue);
+                        if (targetField != null) {
+                            targetField.setAccessible(true);
+//                            Object existingValue = targetField.get(existing);
+
+                            // Step 4: Only update if new value is non-null and of the same type
+                            if (newValue != null) {
+                                targetField.set(existing, newValue);
+                            }
                         }
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException("Error accessing field: " + field.getName(), e);
@@ -28,4 +34,12 @@ public class EntityUtils {
                 });
     }
 
+    // Helper method to get field from target class (handles cases where target is a superclass)
+    private static Field getField(Class<?> clazz, String fieldName) {
+        try {
+            return clazz.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            return clazz.getSuperclass() != null ? getField(clazz.getSuperclass(), fieldName) : null;
+        }
+    }
 }

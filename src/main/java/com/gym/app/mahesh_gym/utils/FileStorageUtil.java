@@ -1,8 +1,11 @@
 package com.gym.app.mahesh_gym.utils;
 
+import com.gym.app.mahesh_gym.constants.Constants;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -32,7 +35,7 @@ public class FileStorageUtil {
         } catch (IllegalArgumentException e) {
             throw new IOException("Invalid Base64 input: " + e.getMessage());
         }
-        String folderPath = "D:/springboot/s3/customer/" + customerId;
+        String folderPath = Constants.folderPath + customerId;
         String filePath = folderPath + "/" + fileName;
         Path folder = Paths.get(folderPath);
 
@@ -49,6 +52,18 @@ public class FileStorageUtil {
         }
 
         System.out.println("File saved successfully at: " + filePath);
+    }
+
+    public static String getFile(String id, String fileName) throws IOException {
+        Path filePath = Paths.get(Constants.folderPath + "/", id + "/", fileName);
+        if (Files.exists(filePath)) {
+            byte[] fileBytes = Files.readAllBytes(filePath);
+            // Convert to Base64
+            return Base64.getEncoder().encodeToString(fileBytes);
+        } else {
+            System.out.println("❌ File not found in the folder.");
+            throw new NoSuchFileException("File not found in the folder.");
+        }
     }
 }
 
